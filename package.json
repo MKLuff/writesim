@@ -8,16 +8,8 @@
     "pug": "pug src -wo dist",
     "start": "concurrently \"npm run pug\" \"npm run scss\" \"live-server --open=dist --watch=dist\""
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/2uinc/harmony-sandbox.git"
-  },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/2uinc/harmony-sandbox/issues"
-  },
-  "homepage": "https://github.com/2uinc/harmony-sandbox#readme",
   "devDependencies": {
     "concurrently": "^3.5.0",
     "live-server": "^1.2.0",
