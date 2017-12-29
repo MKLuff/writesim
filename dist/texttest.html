@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Write</title><link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"><link rel="stylesheet" href="write.css" type="text/css"></head><body class="canvas"><canvas id="canv" width="32" height="32" style="position: fixed;"></canvas><div class="typewriter-container" style="z-index:10;"><div class="typewriter">Officia quinoa labore velit minim. Blue bottle hexagon reprehenderit food truck. Exercitation freegan copper mug aliqua shaman, occaecat poutine edison bulb chartreuse ugh fashion axe laborum banjo. Cillum readymade actually selfies, authentic intelligentsia dolor shoreditch. In distillery est pop-up bushwick. Helvetica echo park health goth swag lo-fi tofu narwhal. Incididunt ipsum blue bottle coloring book, kickstarter venmo meggings direct trade hella tilde slow-carb enim. Small batch viral sustainable 8-bit lomo. Fanny pack godard 90's yuccie. Edison bulb post-ironic twee et pinterest chillwave pop-up flannel austin locavore farm-to-table. Ea non vegan kogi street art scenester skateboard esse sint gentrify wolf fanny pack. Blue bottle chia mustache edison bulb, elit proident intelligentsia in live-edge man braid sed excepteur tumeric photo booth four loko. Austin tattooed leggings coloring book adaptogen. Officia quinoa labore velit minim. Blue bottle hexagon reprehenderit food truck. Exercitation freegan copper mug aliqua shaman, occaecat poutine edison bulb chartreuse ugh fashion axe laborum banjo. Cillum readymade actually selfies, authentic intelligentsia dolor shoreditch. In distillery est pop-up bushwick. Helvetica echo park health goth swag lo-fi tofu narwhal. Incididunt ipsum blue bottle coloring book, kickstarter venmo meggings direct trade hella tilde slow-carb enim. Small batch viral sustainable 8-bit lomo. Fanny pack godard 90's yuccie. Edison bulb post-ironic twee et pinterest chillwave pop-up flannel austin locavore farm-to-table. Ea non vegan kogi street art scenester skateboard esse sint gentrify wolf fanny pack. Blue bottle chia mustache edison bulb, elit proident intelligentsia in live-edge man braid sed excepteur tumeric photo booth four loko. Austin tattooed leggings coloring book adaptogen. Officia quinoa labore velit minim. Blue bottle hexagon reprehenderit food truck. Exercitation freegan copper mug aliqua shaman, occaecat poutine edison bulb chartreuse ugh fashion axe laborum banjo. Cillum readymade actually selfies, authentic intelligentsia dolor shoreditch. In distillery est pop-up bushwick. Helvetica echo park health goth swag lo-fi tofu narwhal. Incididunt ipsum blue bottle coloring book, kickstarter venmo meggings direct trade hella tilde slow-carb enim. Small batch viral sustainable 8-bit lomo. Fanny pack godard 90's yuccie. Edison bulb post-ironic twee et pinterest chillwave pop-up flannel austin locavore farm-to-table. Ea non vegan kogi street art scenester skateboard esse sint gentrify wolf fanny pack. Blue bottle chia mustache edison bulb, elit proident intelligentsia in live-edge man braid sed excepteur tumeric photo booth four loko. Austin tattooed leggings coloring book adaptogen.</div></div></body></html><script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script><script>var typewriter = $('.typewriter');
+
+
+typewriter.click(function(){
+	typewriter.css("-webkit-background-clip","none");
+});
+$('.blip').click(function(){
+	alert();
+	$('.canvas').hide().show(0);
+
+})
+
+
+
+// http://www.mattboldt.com/demos/typed-js/
+//- $('#typo').keydown(function() {
+//-     $('.typewriter').html($(this).val());
+//- });
+//- $('#typo').keyup(function() {
+//-     $('.typewriter').html($(this).val());
+//- });
+document.onkeypress = function(evt) {
+    evt = evt || window.event;
+    var charCode = evt.keyCode || evt.which;
+    var charStr = String.fromCharCode(charCode);
+    typewriter.html(typewriter.html()+charStr);
+};
+
+</script><style>body {
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+}
+	
+</style><script>var c = document.getElementById('canv');
+var $ = c.getContext('2d');
+
+
+var col = function(x, y, r, g, b) {
+  $.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+  $.fillRect(x, y, 1,1);
+}
+var R = function(x, y, t) {
+  return( Math.floor(192 + 64*Math.cos( (x*x-y*y)/300 + t )) );
+}
+
+var G = function(x, y, t) {
+  return( Math.floor(192 + 64*Math.sin( (x*x*Math.cos(t/4)+y*y*Math.sin(t/3))/300 ) ) );
+}
+
+var B = function(x, y, t) {
+  return( Math.floor(192 + 64*Math.sin( 5*Math.sin(t/9) + ((x-100)*(x-100)+(y-100)*(y-100))/1100) ));
+}
+
+var t = 0;
+
+var run = function() {
+  for(x=0;x<=35;x++) {
+    for(y=0;y<=35;y++) {
+      col(x, y, R(x,y,t), G(x,y,t), B(x,y,t));
+    }
+  }
+  t = t + 0.120;
+  window.requestAnimationFrame(run);
+}
+
+run();</script>

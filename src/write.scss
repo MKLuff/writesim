@@ -1,0 +1,249 @@
+@font-face {
+    font-family: "gravity";
+    src: url(Gravity-Regular.otf) format("truetype");
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    color: white;
+    font-family: gravity;
+    line-height: 1.5;
+}
+
+button, input {
+    font-family: gravity;
+    line-height: 1.5;
+}
+
+h1{
+    text-align: center;
+    margin-top: 100px;
+    font-weight: 200;
+}
+.buttons{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.canvas{
+    width: 100%;
+    height:100vh;
+    // background: $gradient-inverse !important;
+    background: linear-gradient(29deg, #5c5c5c, #838383, #a5a5a5, #c1c1c1, #dddddd, #ffffff);
+    background-size: 1200% 1200%;
+    -webkit-animation: AnimationName 30s ease infinite;
+    -moz-animation: AnimationName 30s ease infinite;
+    -o-animation: AnimationName 30s ease infinite;
+    animation: AnimationName 30s ease infinite;
+    @-webkit-keyframes AnimationName {
+        0%{background-position:78% 0%}
+        50%{background-position:23% 100%}
+        100%{background-position:78% 0%}
+    }
+    @-moz-keyframes AnimationName {
+        0%{background-position:78% 0%}
+        50%{background-position:23% 100%}
+        100%{background-position:78% 0%}
+    }
+    @-o-keyframes AnimationName {
+        0%{background-position:78% 0%}
+        50%{background-position:23% 100%}
+        100%{background-position:78% 0%}
+    }
+    @keyframes AnimationName {
+        0%{background-position:78% 0%}
+        50%{background-position:23% 100%}
+        100%{background-position:78% 0%}
+    } 
+
+    &.angry {
+        background: linear-gradient(39deg, #944052, #bb6678, #e497a7, #eac4c4, #fbfbfb);
+        background-size: 1000% 1000%;
+        -webkit-animation: AnimationName 19s ease infinite;
+        -moz-animation: AnimationName 19s ease infinite;
+        -o-animation: AnimationName 19s ease infinite;
+        animation: AnimationName 19s ease infinite;
+        @-webkit-keyframes AnimationName {
+            0%{background-position:81% 0%}
+            50%{background-position:20% 100%}
+            100%{background-position:81% 0%}
+        }
+        @-moz-keyframes AnimationName {
+            0%{background-position:81% 0%}
+            50%{background-position:20% 100%}
+            100%{background-position:81% 0%}
+        }
+        @-o-keyframes AnimationName {
+            0%{background-position:81% 0%}
+            50%{background-position:20% 100%}
+            100%{background-position:81% 0%}
+        }
+        @keyframes AnimationName {
+            0%{background-position:81% 0%}
+            50%{background-position:20% 100%}
+            100%{background-position:81% 0%}
+        }
+    }
+
+    &.sad {
+        background: linear-gradient(35deg, #251e7f, #364594, #5174ae, #729fcc, #92cbe1, #b4f2f5, #dffeff, #ffffff);
+        background-size: 1600% 1600%;
+        -webkit-animation: AnimationName 23s ease infinite;
+        -moz-animation: AnimationName 23s ease infinite;
+        -o-animation: AnimationName 23s ease infinite;
+        animation: AnimationName 23s ease infinite;
+        @-webkit-keyframes AnimationName {
+            0%{background-position:86% 0%}
+            50%{background-position:15% 100%}
+            100%{background-position:86% 0%}
+        }
+        @-moz-keyframes AnimationName {
+            0%{background-position:86% 0%}
+            50%{background-position:15% 100%}
+            100%{background-position:86% 0%}
+        }
+        @-o-keyframes AnimationName {
+            0%{background-position:86% 0%}
+            50%{background-position:15% 100%}
+            100%{background-position:86% 0%}
+        }
+        @keyframes AnimationName {
+            0%{background-position:86% 0%}
+            50%{background-position:15% 100%}
+            100%{background-position:86% 0%}
+        }
+    }
+
+    &.happy {
+        background: linear-gradient(32deg, #6de153, #eadd24, #cc48bb, #f0358e, #35def0, #ffffff);
+        background-size: 1200% 1200%;
+        -webkit-animation: AnimationName 46s ease infinite;
+        -moz-animation: AnimationName 46s ease infinite;
+        -o-animation: AnimationName 46s ease infinite;
+        animation: AnimationName 46s ease infinite;
+        @-webkit-keyframes AnimationName {
+            0%{background-position:0% 88%}
+            50%{background-position:100% 13%}
+            100%{background-position:0% 88%}
+        }
+        @-moz-keyframes AnimationName {
+            0%{background-position:0% 88%}
+            50%{background-position:100% 13%}
+            100%{background-position:0% 88%}
+        }
+        @-o-keyframes AnimationName {
+            0%{background-position:0% 88%}
+            50%{background-position:100% 13%}
+            100%{background-position:0% 88%}
+        }
+        @keyframes AnimationName {
+            0%{background-position:0% 88%}
+            50%{background-position:100% 13%}
+            100%{background-position:0% 88%}
+        }
+
+    }
+}
+.typewriter-container{
+    position: relative;
+    height:400px;
+    margin: auto;
+    max-width: 40rem;
+}
+
+.typewriter, .prompt, #typo{
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    font-size: 24px;
+    color: #fff;
+    text-align: justify;
+    text-justify: inter-word;
+    background: -webkit-linear-gradient(bottom, white 300px, rgba(255, 255, 255, 0) 400px);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+ #typo{
+    color: transparent;
+ }
+
+// a {
+//     color: #2278b5;
+//     text-decoration: none;
+
+//     &:hover {
+//         text-decoration: underline;
+//     }
+// }
+
+small {
+    font-size: 13px;
+}
+
+button{
+    float: left;
+    margin: 24px;
+}
+
+
+//- textarea#typo
+// canvas {
+//     width: 100%;
+//     position: fixed;
+//     top:0;
+//     height: 100%;
+//     z-index: -1;
+// }
+
+.metacontrols{
+    display: none;
+    position: fixed;
+    bottom:0;
+    background: rgba(0,0,0,.5);
+    font-family: "Consolas";
+    font-size:10px;
+    padding:10px;
+    padding-bottom:0;
+    input{
+        margin-bottom: 10px;
+        background: rgba(255,255,255,.8);
+        border: none;
+        padding:5px;
+        line-height: 12px;
+        width: 2rem;
+        font-family: "Consolas";
+    }
+}
+
+.button {
+    border: 0;
+    border-radius: 5px;
+    line-height: 1.5;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+    padding: .5em 1.5em;
+
+    &.is--active,
+    &:hover,
+    &:focus {
+        transform: translate3d(0, -1px, 0);
+    }
+
+    &:active {
+        transform: translate3d(0, 0, 0);
+        outline: 0;
+    }
+
+    color: #fff;
+    border: 1px solid #fff;
+    background-color: transparent !important;
+
+    font-size: 24px;
+}
