@@ -1,0 +1,127 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width,initial-scale=1")
+        title Write
+        link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
+        link(rel="stylesheet", href="write.css", type="text/css")
+    body
+        canvas#canv(width="32",height="32")
+        .controls
+            h1 How do you feel
+            .buttons
+                button.button.button--outline.button--large(canvas-class="good") good
+                button.button.button--outline.button--large(canvas-class="angry") angry
+                button.button.button--outline.button--large(canvas-class="sad") sad
+        .typewriter-container(style="display:none;")
+            div.typewriter 
+            div.prompt(style="margin-bottom:2rem") Tell me about it
+        - var values = {"pixelx":1, "pixely":1, "xcap":50, "ycap":50, "fps":50};
+        .metacontrols(style="display:block")
+            for a, b in values
+                label= b + " : "
+                input.control(value= a, id= b)
+                br
+            
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    
+script.
+    var typewriter = $('.typewriter');
+    
+
+    //- typewriter.click(function(){
+    //-     typewriter.css("-webkit-background-clip","none");
+    //- });
+    //- $('.blip').click(function(){
+    //-     alert();
+    //-     $('.canvas').hide().show(0);
+
+    //- })
+
+    $(':button').click(function(){
+        $('.controls').hide()
+        $('.typewriter-container').show(0);
+        $('.prompt').fadeTo( 2000 , 0);
+        $(".canvas").addClass((this.getAttribute("canvas-class")));
+    })
+
+
+
+    // http://www.mattboldt.com/demos/typed-js/
+    //- $('#typo').keydown(function() {
+    //-     $('.typewriter').html($(this).val());
+    //- });
+    //- $('#typo').keyup(function() {
+    //-     $('.typewriter').html($(this).val());
+    //- });
+    document.onkeypress = function(evt) {
+        evt = evt || window.event;
+        var charCode = evt.keyCode || evt.which;
+        var charStr = String.fromCharCode(charCode);
+        typewriter.html(typewriter.html()+charStr);
+    };
+
+    var c = document.getElementById('canv');
+    var context = c.getContext('2d');
+
+    //- var rgba1 = [0, 0, 0];
+    //- var rgba2 = [255, 255, 255];
+
+
+    var col = function(x, y, r, g, b) {
+        context.fillStyle = "rgba(" + r + "," + g + "," + b + ", .1)";
+        context.fillRect(x, y, $("#pixelx").val(),$("#pixely").val());
+    }
+    var quickcol = function(x,y,rgbarray){
+        col(x, y, rgbarray[0], rgbarray[1], rgbarray[2])
+    }
+    var R = function(x, y, t) {
+        return( Math.floor((100)*Math.cos( (x*x-y*y)/300 + t )) );
+    }
+
+    var G = function(x, y, t) {
+        return( Math.floor((100)*Math.sin( (x*x*Math.cos(t/4)+y*y*Math.sin(t/3))/300 ) ) );
+    }
+
+    var B = function(x, y, t) {
+        return( Math.floor((100)*Math.sin( 5*Math.sin(t/9) + ((x-100)*(x-100)+(y-100)*(y-100))/1100) ));
+    }
+
+    var RG = function(x, y, t) {
+        return R(x,y,t) + G(x,y,t);
+    }
+    var RB = function(x, y, t) {
+        return R(x,y,t) + B(x,y,t);
+    }
+    var GB = function(x, y, t) {
+        return G(x,y,t) + B(x,y,t);
+    }
+    var RGB = function(x, y, t) {
+        return R(x,y,t) + G(x,y,t) + B(x,y,t);
+    }
+
+
+
+    var t = 0;
+
+    var run = function() {
+
+        for(x=0;x<=$("#xcap").val();x++) {
+            for(y=0;y<=$("#ycap").val();y++) {
+                var sum = (R(x,y,t)+B(x,y,t)+G(x,y,t));
+                
+                col(x*$("#pixelx").val(), y*$("#pixely").val(), 
+                    sum, sum, sum);
+                    //- R(x,y,t), 
+                    //- B(x,y,t), 
+                    //- G(x,y,t));
+            }
+        }
+        t = t + 0.120;
+        setTimeout( function(){
+            window.requestAnimationFrame(run)
+                }, 1000/$("#fps").val());
+    }
+
+    run();
