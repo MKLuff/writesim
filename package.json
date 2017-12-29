@@ -4,9 +4,9 @@
   "description": "Words and Feelings and Colors",
   "main": "index.js",
   "scripts": {
-    "scss": "node-sass src -wo dist",
-    "pug": "pug src -wo dist",
-    "start": "concurrently \"npm run pug\" \"npm run scss\" \"live-server --open=dist --watch=dist\""
+    "scss": "node-sass src -wo .",
+    "pug": "pug src -wo .",
+    "start": "concurrently \"npm run pug\" \"npm run scss\" \"live-server --open=. --watch=.\""
   },
   "author": "",
   "license": "ISC",
