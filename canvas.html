@@ -1,4 +1,12 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Write</title><link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"><link rel="stylesheet" href="write.css" type="text/css"></head><body><canvas id="canv" width="32" height="32"></canvas><div class="controls"><h1>How do you feel</h1><div class="buttons"><button class="button button--outline button--large" canvas-class="good">good</button><button class="button button--outline button--large" canvas-class="angry">angry</button><button class="button button--outline button--large" canvas-class="sad">sad</button></div></div><div class="typewriter-container" style="display:none;"><div class="typewriter"> </div><div class="prompt" style="margin-bottom:2rem;">Tell me about it</div></div><div class="metacontrols" style="display:block;"><label>pixelx : </label><input class="control" value="1" id="pixelx"><br><label>pixely : </label><input class="control" value="1" id="pixely"><br><label>xcap : </label><input class="control" value="50" id="xcap"><br><label>ycap : </label><input class="control" value="50" id="ycap"><br><label>fps : </label><input class="control" value="50" id="fps"><br></div></body></html><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script><script>var typewriter = $('.typewriter');
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Write</title><link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"><link rel="stylesheet" href="write.css" type="text/css"></head><body><canvas id="canv" width="32" height="32"></canvas><div class="controls"><h1>How do you feel</h1><div class="buttons"><button class="button button--outline button--large" canvas-class="good">good</button><button class="button button--outline button--large" canvas-class="angry">angry</button><button class="button button--outline button--large" canvas-class="sad">sad</button></div></div><div class="typewriter-container" style="display:none;"><div class="typewriter"> </div><div class="prompt" style="margin-bottom:2rem;">Tell me about it</div></div><div class="metacontrols" style="display:block;"><label>redtint : </label><input class="control" value="0" id="redtint"><br><label>bluetint : </label><input class="control" value="0" id="bluetint"><br><label>greentint : </label><input class="control" value="0" id="greentint"><br><label>pixelx : </label><input class="control" value="1" id="pixelx"><br><label>pixely : </label><input class="control" value="1" id="pixely"><br><label>xcap : </label><input class="control" value="50" id="xcap"><br><label>ycap : </label><input class="control" value="50" id="ycap"><br><label>fps : </label><input class="control" value="50" id="fps"><br></div></body></html><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script><script>var typewriter = $('.typewriter');
+var redtint = $('#redtint').val( ) ;
+var bluetint = $('#bluetint').val( );
+var greentint = $('#greentint').val( );
+var pixelx = $('#pixelx').val( );
+var pixely = $('#pixely').val( );
+var xcap = $('#xcap').val( );
+var ycap = $('#ycap').val( );
+var fps = $('#fps').val( );
 
 
 //- typewriter.click(function(){
@@ -39,24 +47,34 @@ var context = c.getContext('2d');
 //- var rgba1 = [0, 0, 0];
 //- var rgba2 = [255, 255, 255];
 
+var reinitialize = function() {
+    redtint = $('#redtint').val( ) ;
+    bluetint = $('#bluetint').val( );
+    greentint = $('#greentint').val( );
+    pixelx = $('#pixelx').val( );
+    pixely = $('#pixely').val( );
+    xcap = $('#xcap').val( );
+    ycap = $('#ycap').val( );
+    fps = $('#fps').val( );    
+}
 
 var col = function(x, y, r, g, b) {
-    context.fillStyle = "rgba(" + r + "," + g + "," + b + ", .1)";
-    context.fillRect(x, y, $("#pixelx").val(),$("#pixely").val());
+    context.fillStyle = "rgba(" + r + "," + g + "," + b + ", 1)";
+    context.fillRect(x, y, pixelx,pixely);
 }
 var quickcol = function(x,y,rgbarray){
     col(x, y, rgbarray[0], rgbarray[1], rgbarray[2])
 }
 var R = function(x, y, t) {
-    return( Math.floor((100)*Math.cos( (x*x-y*y)/300 + t )) );
+    return( Math.floor((192)*Math.cos( (x*x-y*y)/300 + t )) );
 }
 
 var G = function(x, y, t) {
-    return( Math.floor((100)*Math.sin( (x*x*Math.cos(t/4)+y*y*Math.sin(t/3))/300 ) ) );
+    return( Math.floor((192)*Math.sin( (x*x*Math.cos(t/4)+y*y*Math.sin(t/3))/300 ) ) );
 }
 
 var B = function(x, y, t) {
-    return( Math.floor((100)*Math.sin( 5*Math.sin(t/9) + ((x-100)*(x-100)+(y-100)*(y-100))/1100) ));
+    return( Math.floor((192)*Math.sin( 5*Math.sin(t/9) + ((x-100)*(x-100)+(y-100)*(y-100))/1100) ));
 }
 
 var RG = function(x, y, t) {
@@ -77,22 +95,23 @@ var RGB = function(x, y, t) {
 var t = 0;
 
 var run = function() {
-
-    for(x=0;x<=$("#xcap").val();x++) {
-        for(y=0;y<=$("#ycap").val();y++) {
+    reinitialize();
+    for(x=0;x<=xcap;x++) {
+        for(y=0;y<=ycap;y++) {
             var sum = (R(x,y,t)+B(x,y,t)+G(x,y,t));
             
-            col(x*$("#pixelx").val(), y*$("#pixely").val(), 
-                sum, sum, sum);
-                //- R(x,y,t), 
-                //- B(x,y,t), 
-                //- G(x,y,t));
+            col(x*pixelx, y*pixely, 
+                //- sum, sum, sum);
+                R(x,y,t)+redtint, 
+                B(x,y,t)+bluetint, 
+                G(x,y,t)+greentint);
         }
     }
     t = t + 0.120;
+
     setTimeout( function(){
         window.requestAnimationFrame(run)
-            }, 1000/$("#fps").val());
+            }, 1000/fps);
 }
 
 run();</script>

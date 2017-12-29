@@ -17,7 +17,7 @@ html(lang="en")
         .typewriter-container(style="display:none;")
             div.typewriter 
             div.prompt(style="margin-bottom:2rem") Tell me about it
-        - var values = {"pixelx":1, "pixely":1, "xcap":50, "ycap":50, "fps":50};
+        - var values = {"redtint":0, "bluetint":0, "greentint":0, "pixelx":1, "pixely":1, "xcap":50, "ycap":50, "fps":50};
         .metacontrols(style="display:block")
             for a, b in values
                 label= b + " : "
@@ -28,7 +28,15 @@ html(lang="en")
     
 script.
     var typewriter = $('.typewriter');
-    
+    var redtint = $('#redtint').val( ) ;
+    var bluetint = $('#bluetint').val( );
+    var greentint = $('#greentint').val( );
+    var pixelx = $('#pixelx').val( );
+    var pixely = $('#pixely').val( );
+    var xcap = $('#xcap').val( );
+    var ycap = $('#ycap').val( );
+    var fps = $('#fps').val( );
+
 
     //- typewriter.click(function(){
     //-     typewriter.css("-webkit-background-clip","none");
@@ -68,24 +76,34 @@ script.
     //- var rgba1 = [0, 0, 0];
     //- var rgba2 = [255, 255, 255];
 
+    var reinitialize = function() {
+        redtint = $('#redtint').val( ) ;
+        bluetint = $('#bluetint').val( );
+        greentint = $('#greentint').val( );
+        pixelx = $('#pixelx').val( );
+        pixely = $('#pixely').val( );
+        xcap = $('#xcap').val( );
+        ycap = $('#ycap').val( );
+        fps = $('#fps').val( );    
+    }
 
     var col = function(x, y, r, g, b) {
-        context.fillStyle = "rgba(" + r + "," + g + "," + b + ", .1)";
-        context.fillRect(x, y, $("#pixelx").val(),$("#pixely").val());
+        context.fillStyle = "rgba(" + r + "," + g + "," + b + ", 1)";
+        context.fillRect(x, y, pixelx,pixely);
     }
     var quickcol = function(x,y,rgbarray){
         col(x, y, rgbarray[0], rgbarray[1], rgbarray[2])
     }
     var R = function(x, y, t) {
-        return( Math.floor((100)*Math.cos( (x*x-y*y)/300 + t )) );
+        return( Math.floor((192)*Math.cos( (x*x-y*y)/300 + t )) );
     }
 
     var G = function(x, y, t) {
-        return( Math.floor((100)*Math.sin( (x*x*Math.cos(t/4)+y*y*Math.sin(t/3))/300 ) ) );
+        return( Math.floor((192)*Math.sin( (x*x*Math.cos(t/4)+y*y*Math.sin(t/3))/300 ) ) );
     }
 
     var B = function(x, y, t) {
-        return( Math.floor((100)*Math.sin( 5*Math.sin(t/9) + ((x-100)*(x-100)+(y-100)*(y-100))/1100) ));
+        return( Math.floor((192)*Math.sin( 5*Math.sin(t/9) + ((x-100)*(x-100)+(y-100)*(y-100))/1100) ));
     }
 
     var RG = function(x, y, t) {
@@ -106,22 +124,23 @@ script.
     var t = 0;
 
     var run = function() {
-
-        for(x=0;x<=$("#xcap").val();x++) {
-            for(y=0;y<=$("#ycap").val();y++) {
+        reinitialize();
+        for(x=0;x<=xcap;x++) {
+            for(y=0;y<=ycap;y++) {
                 var sum = (R(x,y,t)+B(x,y,t)+G(x,y,t));
                 
-                col(x*$("#pixelx").val(), y*$("#pixely").val(), 
-                    sum, sum, sum);
-                    //- R(x,y,t), 
-                    //- B(x,y,t), 
-                    //- G(x,y,t));
+                col(x*pixelx, y*pixely, 
+                    //- sum, sum, sum);
+                    R(x,y,t)+redtint, 
+                    B(x,y,t)+bluetint, 
+                    G(x,y,t)+greentint);
             }
         }
         t = t + 0.120;
+
         setTimeout( function(){
             window.requestAnimationFrame(run)
-                }, 1000/$("#fps").val());
+                }, 1000/fps);
     }
 
     run();
